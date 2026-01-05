@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# 🌱 AuraFarm
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AuraFarm is a **farmer-first community platform** designed to empower farmers through peer-to-peer knowledge sharing, direct farm exchanges, and intelligent agricultural guidance.
 
-Currently, two official plugins are available:
+Built as a **working MVP**, AuraFarm focuses on **trust, identity, and usability** at the grassroots level.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚜 Problem Statement
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+India has over **145 million farmers**, yet digital adoption at the grassroots level remains low.
 
-## Expanding the ESLint configuration
+Current platforms:
+- Treat farmers as data points, not people
+- Lack farmer-to-farmer trust mechanisms
+- Do not provide a unified space for sharing real farm experiences, crop practices, or peer support
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+AuraFarm addresses this gap by building a **farmer-centric digital ecosystem**.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🌾 Core Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🧑‍🌾 Farmer Identity & Trust
+- Farmer profile with:
+  - Name, village
+  - Land size
+  - Crops & livestock
+- Identity shown across posts and listings
+- Activity-based trust badges (foundation laid)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🌱 Community Feed
+- Farmers share real farm updates
+- Posts display **farmer name and village**
+- Real-time feed using Firestore
+- Social interactions (like / reply – extensible)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🤝 BeejMitra (Farmer-to-Farmer Exchange)
+- Seed, crop, livestock exchange listings
+- No middlemen or commissions
+- Listings automatically show farmer identity
+- Direct WhatsApp contact
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🤖 KrishiSaathi (AI Guidance – MVP)
+- Seasonal advisory based on farming calendar
+- Guided crop issue detection (rule-based)
+- Designed for future AI/ML integration
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React + Vite + TypeScript
+- **Backend:** Firebase
+  - Firebase Authentication
+  - Firestore Database
+- **State Management:** React Hooks
+- **UI:** Minimal, clean, mobile-first
+- **Hosting (Planned):** Vercel / Firebase Hosting
+
+
+
+🏆 Why AuraFarm?
+
+AuraFarm is not just an app — it’s a digital extension of real farmer communities, designed with empathy, trust, and practicality.
+
+“Built from the perspective of farming families, where informal farmer-to-farmer knowledge exchange already exists offline — AuraFarm scales this collaboration digitally.”
