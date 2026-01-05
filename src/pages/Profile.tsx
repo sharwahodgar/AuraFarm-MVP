@@ -19,7 +19,6 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  // 🔑 Wait for auth
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) setUid(user.uid);
@@ -28,27 +27,24 @@ export default function Profile() {
     return () => unsub();
   }, []);
 
-  // 🔑 Load or FIX profile
   useEffect(() => {
     if (!uid) return;
 
-    const loadOrCreateProfile = async () => {
+    const loadProfile = async () => {
       const ref = doc(db, "users", uid);
       const snap = await getDoc(ref);
 
       if (snap.exists()) {
         setProfile(snap.data() as ProfileData);
       } else {
-        // 🔥 AUTO-FIX: create missing profile
         const newProfile: ProfileData = {
-          name: auth.currentUser?.displayName || "Farmer",
+          name: "",
           village: "",
           landSize: "",
           crops: [],
           livestock: [],
           badges: ["New Farmer"],
         };
-
         await setDoc(ref, newProfile);
         setProfile(newProfile);
       }
@@ -56,7 +52,7 @@ export default function Profile() {
       setLoading(false);
     };
 
-    loadOrCreateProfile();
+    loadProfile();
   }, [uid]);
 
   const saveProfile = async () => {
@@ -68,7 +64,7 @@ export default function Profile() {
   };
 
   if (loading) return <p>Loading profile…</p>;
-  if (!profile) return <p>Profile error. Please reload.</p>;
+  if (!profile) return <p>Profile error</p>;
 
   return (
     <div>
@@ -83,31 +79,56 @@ export default function Profile() {
           <Row label="Livestock" value={profile.livestock.join(", ")} />
 
           <h4>🏅 Badges</h4>
-          {profile.badges.map((b, i) => (
+          {profile.badges.map((b: string, i: number) => (
             <span key={i} style={badgeStyle}>{b}</span>
           ))}
 
-          <br /><br />
+          <br />
           <button onClick={() => setEditMode(true)}>Edit Profile</button>
         </>
       ) : (
         <>
-          <Input label="Name" value={profile.name}
-            onChange={(v) => setProfile({ ...profile, name: v })} />
-          <Input label="Village" value={profile.village}
-            onChange={(v) => setProfile({ ...profile, village: v })} />
-          <Input label="Land Size" value={profile.landSize}
-            onChange={(v) => setProfile({ ...profile, landSize: v })} />
-          <Input label="Crops"
+          <Input
+            label="Name"
+            value={profile.name}
+            onChange={(v: string) =>
+              setProfile({ ...profile, name: v })
+            }
+          />
+          <Input
+            label="Village"
+            value={profile.village}
+            onChange={(v: string) =>
+              setProfile({ ...profile, village: v })
+            }
+          />
+          <Input
+            label="Land Size"
+            value={profile.landSize}
+            onChange={(v: string) =>
+              setProfile({ ...profile, landSize: v })
+            }
+          />
+          <Input
+            label="Crops (comma separated)"
             value={profile.crops.join(", ")}
-            onChange={(v) =>
-              setProfile({ ...profile, crops: v.split(",").map(c => c.trim()) })
-            } />
-          <Input label="Livestock"
+            onChange={(v: string) =>
+              setProfile({
+                ...profile,
+                crops: v.split(",").map((c: string) => c.trim()),
+              })
+            }
+          />
+          <Input
+            label="Livestock (comma separated)"
             value={profile.livestock.join(", ")}
-            onChange={(v) =>
-              setProfile({ ...profile, livestock: v.split(",").map(l => l.trim()) })
-            } />
+            onChange={(v: string) =>
+              setProfile({
+                ...profile,
+                livestock: v.split(",").map((l: string) => l.trim()),
+              })
+            }
+          />
 
           <button onClick={saveProfile} disabled={saving}>
             {saving ? "Saving..." : "Save"}
@@ -115,27 +136,39 @@ export default function Profile() {
         </>
       )}
 
-      <br /><br />
+      <br />
       <button onClick={() => signOut(auth)}>Logout</button>
     </div>
   );
 }
 
-/* helpers */
+/* ---------- Helpers ---------- */
+
 function Row({ label, value }: { label: string; value: string }) {
   return <p><b>{label}:</b> {value || "-"}</p>;
 }
 
-function Input({ label, value, onChange }: any) {
+function Input({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
   return (
     <div style={{ marginBottom: 10 }}>
       <label>{label}</label>
-      <input value={value} onChange={(e) => onChange(e.target.value)} />
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
     </div>
   );
 }
 
-const badgeStyle = {
+const badgeStyle: React.CSSProperties = {
   background: "#2e7d32",
   color: "#fff",
   padding: "6px 10px",
