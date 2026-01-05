@@ -15,9 +15,9 @@ type ProfileData = {
 export default function Profile() {
   const [uid, setUid] = useState<string | null>(null);
   const [profile, setProfile] = useState<ProfileData | null>(null);
-  const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [saving, setSaving] = useState<boolean>(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -142,7 +142,7 @@ export default function Profile() {
   );
 }
 
-/* ---------- Helpers ---------- */
+/* ---------- helpers ---------- */
 
 function Row({ label, value }: { label: string; value: string }) {
   return <p><b>{label}:</b> {value || "-"}</p>;
@@ -162,7 +162,9 @@ function Input({
       <label>{label}</label>
       <input
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange(e.target.value)
+        }
       />
     </div>
   );
