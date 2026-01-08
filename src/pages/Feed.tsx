@@ -35,43 +35,9 @@ export default function Feed() {
   const [postText, setPostText] = useState("");
   const [mediaPreview, setMediaPreview] = useState<MediaPreview | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [userProfile, setUserProfile] = useState<{ name: string; village: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
 
-  // 👤 Load user profile
-  useEffect(() => {
-    const loadUserProfile = async () => {
-      const user = auth.currentUser;
-      if (!user) return;
-
-      try {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          setUserProfile({
-            name: data.name || user.email?.split("@")[0] || "Farmer",
-            village: data.village || "Unknown Village",
-          });
-        } else {
-          // Fallback if profile doesn't exist yet
-          setUserProfile({
-            name: user.email?.split("@")[0] || "Farmer",
-            village: "Unknown Village",
-          });
-        }
-      } catch (error) {
-        console.error("Error loading user profile:", error);
-        // Fallback values
-        setUserProfile({
-          name: auth.currentUser?.email?.split("@")[0] || "Farmer",
-          village: "Unknown Village",
-        });
-      }
-    };
-
-    loadUserProfile();
-  }, []);
 
   // 🔁 Real-time feed
   useEffect(() => {
@@ -155,12 +121,6 @@ export default function Feed() {
           if (data.village && typeof data.village === 'string' && data.village.trim()) {
             villageName = data.village.trim();
           }
-          
-          // Update state for future reference
-          setUserProfile({
-            name: farmerName,
-            village: villageName,
-          });
           
           console.log("Using farmer profile:", { name: farmerName, village: villageName });
         } else {
