@@ -177,7 +177,7 @@ export default function BeejMitra() {
               <option value="">Select category</option>
               <option value="seeds">🌱 Seeds</option>
               <option value="fertilizer">🌿 Fertilizer</option>
-              <option value="manure">💩 Manure</option>
+              <option value="manure">🪱 Manure</option>
               <option value="animals">🐄 Animals</option>
               <option value="tools">🔧 Tools</option>
               <option value="other">📦 Other</option>
