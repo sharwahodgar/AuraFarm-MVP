@@ -36,7 +36,7 @@ export default function BeejMitra() {
     { value: "all", label: "All Items", icon: "📦" },
     { value: "seeds", label: "Seeds", icon: "🌱" },
     { value: "fertilizer", label: "Fertilizer", icon: "🌿" },
-    { value: "manure", label: "Manure", icon: "💩" },
+    { value: "manure", label: "Manure", icon: "🪱" },
     { value: "animals", label: "Animals", icon: "🐄" },
     { value: "tools", label: "Tools", icon: "🔧" },
   ];

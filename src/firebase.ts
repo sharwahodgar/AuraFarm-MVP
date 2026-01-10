@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDm5y6Hrhm3BWYjNHnQQ7KPG51eAOIYZhk",
-  authDomain: "aurafarm-2674.firebaseapp.com",
-  projectId: "aurafarm-2674",
-  storageBucket: "aurafarm-2674.firebasestorage.app",
-  messagingSenderId: "117566488946",
-  appId: "1:117566488946:web:c1fdb8c492619422899deb",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
